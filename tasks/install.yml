@@ -1,26 +1,25 @@
 ---
 - name: Install dependencies
   become: true
-  package:
-    name: "{{ item }}"
+  community.general.pacman:
+    name:
+      - base-devel
+      - git
     state: present
-  with_items:
-    - base-devel
-    - git
 
-- name: clone yay from github
+- name: Clone yay from github
   become: false
-  git:
+  ansible.builtin.git:
     repo: https://aur.archlinux.org/yay.git
     dest: /tmp/yay
     version: master
-    update: yes
+    update: true
   tags:
     - yay
 
 - name: makepkg --noconfirm -si
-  command: makepkg --noconfirm -si
   become: false
+  ansible.builtin.command: makepkg --noconfirm -si
   args:
     chdir: /tmp/yay
     creates: /usr/bin/yay
@@ -32,5 +31,5 @@
   yay:
     name: "{{ item }}"
     state: present
-  with_items: "{{ aur_packages }}"
+  loop: "{{ aur_packages }}"
   when: aur_packages

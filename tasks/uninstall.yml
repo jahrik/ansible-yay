@@ -1,11 +1,11 @@
 ---
 - name: Uninstall yay
   become: true
-  package:
+  ansible.builtin.package:
     name: yay
     state: absent
 
 - name: Cleanup /tmp/yay
-  file:
+  ansible.builtin.file:
     path: /tmp/yay
     state: absent
