@@ -12,3 +12,13 @@
       ansible.builtin.assert:
         that: yay_bin.stat.exists
         fail_msg: "yay binary not found at /usr/bin/yay"
+
+    - name: Run yay --version
+      ansible.builtin.command: yay --version
+      register: yay_version
+      changed_when: false
+
+    - name: Assert yay version output
+      ansible.builtin.assert:
+        that: "'yay' in yay_version.stdout"
+        fail_msg: "yay --version did not produce expected output"
