@@ -20,16 +20,18 @@ Installs [yay](https://github.com/Jguer/yay), an AUR helper for Arch Linux, by c
 - `tasks/uninstall.yml` — removes yay package and `/tmp/yay`
 - `library/yay` — custom Ansible module for installing AUR packages using yay
 
-## Testing Commands
+## Testing
 
 ```bash
-# Lint
 yamllint .
-
-# Full molecule test (Arch container)
+ansible-lint
 molecule test
-
-# Iterative
 molecule converge
 molecule destroy
 ```
+
+## CI
+
+- **Lint**: yamllint + ansible-lint
+- **Molecule**: Arch Linux via Docker
+- **Release**: publishes to Ansible Galaxy on merge to `main`

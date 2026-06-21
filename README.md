@@ -1,34 +1,69 @@
-# Yay
+# YAY
 
 [![CICD](https://github.com/jahrik/ansible-yay/actions/workflows/cicd.yml/badge.svg)](https://github.com/jahrik/ansible-yay/actions/workflows/cicd.yml)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-jahrik.yay-blue?logo=ansible)](https://galaxy.ansible.com/ui/standalone/roles/jahrik/yay/)
 
-Installs [yay](https://github.com/Jguer/yay)
+Installs [yay](https://github.com/Jguer/yay) — Yet Another Yogurt, an AUR helper for Arch Linux — and provides a `library/yay` Ansible module for installing AUR packages declaratively from other roles.
 
-## Requirements
-
-- base-devel
-- git
+**Arch Linux only** — does not support Debian, macOS, or SteamOS.
 
 ## Role Variables
 
-Set to install or uninstall and cleanup
-
-    install: true/false
-
-This can be set to install any additional software form the AUR after yay is installed and ready to use.
-
-    aur_packages:
-      - polybar-git
-
-## Dependencies
-
-None
+| Variable | Default | Description |
+|---|---|---|
+| `install` | `true` | Set to `false` to uninstall yay |
+| `aur_packages` | `[]` | List of AUR packages to install after yay is set up |
 
 ## Example Playbook
 
-    - hosts: all
-      roles:
-         - { role: jahrik.yay, install: true }
+Install yay and AUR packages:
+
+```yaml
+---
+- hosts: all
+  roles:
+    - role: jahrik.yay
+      vars:
+        aur_packages:
+          - polybar
+          - hyprland
+```
+
+Install yay only:
+
+```yaml
+---
+- hosts: all
+  roles:
+    - role: jahrik.yay
+```
+
+To uninstall:
+
+```yaml
+---
+- hosts: all
+  vars:
+    install: false
+  roles:
+    - role: jahrik.yay
+```
+
+## Testing
+
+```bash
+yamllint .
+ansible-lint
+molecule test
+```
+
+Step by step:
+
+```bash
+molecule converge
+molecule verify
+molecule destroy
+```
 
 ## License
 
@@ -37,5 +72,3 @@ GPLv2
 ## Author Information
 
 jahrik@gmail.com
-
-https://homelab.business/
