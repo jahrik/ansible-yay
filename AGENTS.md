@@ -23,6 +23,8 @@ Installs [yay](https://github.com/Jguer/yay), an AUR helper for Arch Linux, by c
 ## Testing
 
 ```bash
+uv sync
+source .venv/bin/activate
 yamllint .
 ansible-lint
 molecule test
