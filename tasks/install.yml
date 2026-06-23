@@ -1,4 +1,11 @@
 ---
+- name: Update pacman cache
+  become: true
+  community.general.pacman:
+    update_cache: true
+  changed_when: false
+  when: ansible_os_family == 'Archlinux'
+
 - name: Install dependencies
   become: true
   community.general.pacman:
@@ -6,6 +13,7 @@
       - base-devel
       - git
     state: present
+  when: ansible_os_family == 'Archlinux'
 
 - name: Clone yay from github
   become: false
@@ -16,6 +24,7 @@
     update: true
   tags:
     - yay
+  when: ansible_os_family == 'Archlinux'
 
 - name: Build and install yay with makepkg
   become: false
@@ -25,6 +34,7 @@
     creates: /usr/bin/yay
   tags:
     - yay
+  when: ansible_os_family == 'Archlinux'
 
 - name: Install packages from AUR
   become: true
@@ -32,4 +42,6 @@
     name: "{{ item }}"
     state: present
   loop: "{{ aur_packages }}"
-  when: aur_packages | length > 0
+  when:
+    - aur_packages | length > 0
+    - ansible_os_family == 'Archlinux'

@@ -1,11 +1,13 @@
 ---
 - name: Uninstall yay
   become: true
-  ansible.builtin.package:
+  community.general.pacman:
     name: yay
     state: absent
+  when: ansible_os_family == 'Archlinux'
 
 - name: Cleanup /tmp/yay
   ansible.builtin.file:
     path: /tmp/yay
     state: absent
+  when: ansible_os_family == 'Archlinux'

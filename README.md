@@ -59,13 +59,7 @@ ansible-lint
 molecule test
 ```
 
-Step by step:
 
-```bash
-molecule converge
-molecule verify
-molecule destroy
-```
 
 ## License
 

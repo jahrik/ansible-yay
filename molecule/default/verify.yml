@@ -20,5 +20,5 @@
 
     - name: Assert yay version output
       ansible.builtin.assert:
-        that: "'yay' in yay_version.stdout"
+        that: "'yay' in yay_version.stdout | lower"
         fail_msg: "yay --version did not produce expected output"
