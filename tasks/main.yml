@@ -8,7 +8,7 @@
         - yay:install
   when:
     - install | default(true) | bool
-    - ansible_facts['os_family'] == 'Archlinux'
+    - ansible_facts.get('os_family') == 'Archlinux'
   tags:
     - yay
     - yay:install
@@ -22,7 +22,7 @@
         - yay:uninstall
   when:
     - not (install | default(true) | bool)
-    - ansible_facts['os_family'] == 'Archlinux'
+    - ansible_facts.get('os_family') == 'Archlinux'
   tags:
     - yay
     - yay:uninstall
