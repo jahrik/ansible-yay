@@ -49,6 +49,21 @@ To uninstall:
     - role: jahrik.yay
 ```
 
+## Tags
+
+Run or skip parts of the role with tags:
+
+```bash
+ansible-playbook playbook.yml --tags yay:install
+ansible-playbook playbook.yml --skip-tags yay:uninstall
+```
+
+| Tag | Scope |
+|---|---|
+| `yay` | All role tasks |
+| `yay:install` | Install path only |
+| `yay:uninstall` | Uninstall path only |
+
 ## Testing
 
 ```bash

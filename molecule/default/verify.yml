@@ -22,3 +22,23 @@
       ansible.builtin.assert:
         that: "'yay' in yay_version.stdout"
         fail_msg: "yay --version did not produce expected output"
+
+- name: Verify uninstall
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Run jahrik.yay with install false
+      ansible.builtin.include_role:
+        name: jahrik.yay
+      vars:
+        install: false
+
+    - name: Check yay binary removed
+      ansible.builtin.stat:
+        path: /usr/bin/yay
+      register: yay_bin_removed
+
+    - name: Assert yay binary is removed
+      ansible.builtin.assert:
+        that: not yay_bin_removed.stat.exists
+        fail_msg: "yay binary still present at /usr/bin/yay after uninstall"

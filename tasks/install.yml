@@ -5,7 +5,6 @@
     name:
       - base-devel
       - git
-    state: present
 
 - name: Clone yay from github
   become: false
@@ -13,7 +12,6 @@
     repo: https://aur.archlinux.org/yay.git
     dest: /tmp/yay
     version: master
-    update: true
   tags:
     - yay
 
@@ -30,6 +28,5 @@
   become: true
   yay:
     name: "{{ item }}"
-    state: present
   loop: "{{ aur_packages }}"
   when: aur_packages | length > 0

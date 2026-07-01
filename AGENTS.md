@@ -20,6 +20,10 @@ Installs [yay](https://github.com/Jguer/yay), an AUR helper for Arch Linux, by c
 - `tasks/uninstall.yml` — removes yay package and `/tmp/yay`
 - `library/yay` — custom Ansible module for installing AUR packages using yay
 
+## Tags
+
+`yay` (all), `yay:install`, `yay:uninstall`.
+
 ## Testing
 
 ```bash

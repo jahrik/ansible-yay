@@ -1,8 +1,28 @@
 ---
 - name: Install yay
-  ansible.builtin.include_tasks: install.yml
-  when: install | default(true) | bool
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - yay
+        - yay:install
+  when:
+    - install | default(true) | bool
+    - ansible_facts['os_family'] == 'Archlinux'
+  tags:
+    - yay
+    - yay:install
 
 - name: Uninstall yay
-  ansible.builtin.include_tasks: uninstall.yml
-  when: not (install | default(true) | bool)
+  ansible.builtin.include_tasks:
+    file: uninstall.yml
+    apply:
+      tags:
+        - yay
+        - yay:uninstall
+  when:
+    - not (install | default(true) | bool)
+    - ansible_facts['os_family'] == 'Archlinux'
+  tags:
+    - yay
+    - yay:uninstall
